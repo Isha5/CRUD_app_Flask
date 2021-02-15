@@ -4,5 +4,33 @@
 {% endblock %}
 
 {%block body %} 
-<h2>CRUD Functionality App</h2>
+    <div class="content" style="text-align: center;">
+        <h2>Task Manager</h2>
+        {% if tasks|length < 1 %}
+            <h4>No tasks available. Create one below!!</h4>
+        {% else %}
+        <table>
+            <tr>
+                <th>Task</th>
+                <th>Created on</th>
+                <th>Actions</th>
+            </tr>
+            {% for task in tasks %}                
+            <tr>
+                <td>{{ task.content | title }}</td>
+                <td>{{ task.date_created.date() }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>  | <a href="/update/{{task.id}}">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        <div style="margin-top: 15px">
+            <form action="/" method="POST">
+                <input type="text" name="content" id="content">
+                <input type="submit" value="Add Task">
+            </form>
+        </div>        
+    </div>
 {% endblock %} 
